@@ -9,6 +9,8 @@ namespace Memory
         //indeks pierwszego klikniêtego obrazka
         //-1 oznacza, ¿e jeszcze nie klikniêto
         int firstIndex = -1;
+        //lista obrazków do ukrycia po czasie
+        List<int> toHide = new List<int>();
         public Form1()
         {
             InitializeComponent();
@@ -59,7 +61,7 @@ namespace Memory
 
             // w zale¿noœci od tego czy jest to pierwszy czy drugi klik
             // bêdziemy postêpowaæ inaczej
-            if(firstClick)
+            if (firstClick)
             {
                 //ods³oñ obrazek
                 imageTiles[index].state = State.Shown;
@@ -67,14 +69,14 @@ namespace Memory
                 firstIndex = index;
                 //przerzuæ flagê
                 firstClick = false;
-            } 
+            }
             else
             {
                 //je¿eli jest to drugie klikniêcie
                 //sprawdŸ czy obrazki s¹ takie same
                 string firstImageName = imageTiles[firstIndex].name;
                 string secondImageName = imageTiles[index].name;
-                if(firstImageName == secondImageName)
+                if (firstImageName == secondImageName)
                 {
                     //jeœli obrazki s¹ takie same
                     //ustaw stan obu obrazków na Matched
@@ -84,18 +86,40 @@ namespace Memory
                 else
                 {
                     //jeœli obrazki s¹ ró¿ne
-                    //ukryj pierwszy obrazek
-                    imageTiles[firstIndex].state = State.Hidden;
-                    //ukryj drugi obrazek
-                    imageTiles[index].state = State.Hidden;
+                    ////ukryj pierwszy obrazek
+                    //imageTiles[firstIndex].state = State.Hidden;
+                    ////ukryj drugi obrazek
+                    //imageTiles[index].state = State.Hidden;
+                    //zamiast ukrywaæ oba obrazki zapisz ich indeksy i odpal zegar
+                    toHide.Add(firstIndex); //pierwszy obrazek do ukrycia
+                    toHide.Add(index); //drugi obrazek do ukrycia
+                    timer1.Stop();
+                    timer1.Interval = 1000; //ustaw interwa³ na 1 sekundê
+                    timer1.Start(); 
                 }
                 //przerzuæ flagê
                 firstClick = true;
             }
-
-
-
             //prze³aduj obrazki
+            RefreshImages();
+        }
+        /// <summary>
+        /// Tick zegara - chowamy obrazki, jeœli s¹ ró¿ne
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            //ukryj wszystkie obrazki z listy toHide
+            foreach (int index in toHide)
+            {
+                imageTiles[index].state = State.Hidden;
+            }
+            //wyczyœæ listê
+            toHide.Clear();
+            //wy³¹cz zegar
+            timer1.Stop();
+            //odœwie¿ obrazki
             RefreshImages();
         }
         //Image GetByIndex(int index)

@@ -15,7 +15,7 @@ namespace Memory
     internal class ImageTile
     {
         string name;
-        State state;
+        public State state;
         /// <summary>
         /// Metoda tworzy nową listę obrazków
         /// </summary>

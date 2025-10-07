@@ -2,32 +2,47 @@ namespace Memory
 {
     public partial class Form1 : Form
     {
-        List<string> images = new List<string>();
+        //List<string> images = new List<string>();
+        List<ImageTile> imageTiles;
         public Form1()
         {
             InitializeComponent();
-            for(int i = 1; i <= 8; i++)
-            {
-                images.Add("m" + i);
-                images.Add("m" + i);
-            }
+            //for(int i = 1; i <= 8; i++)
+            //{
+            //    images.Add("m" + i);
+            //    images.Add("m" + i);
+            //}
+            imageTiles = ImageTile.GenerateTiles();
+
+
             // Pobierz obrazek na podstawie nazwy string
             // Ustawianie obrazków w PictureBoxach za pomoc¹ pêtli
+            //for (int i = 0; i < 16; i++)
+            //{
+            //    string pictureboxName = "pictureBox" + (i + 1);
+            //    var pictureBox = Controls.Find(pictureboxName, true)
+            //                                .FirstOrDefault() as PictureBox;
+            //    if (pictureBox != null)
+            //        pictureBox.Image = GetByIndex(i);
+            //}
+            //na koniec inicjalizacji formularza odœwie¿amy obrazki
+            RefreshImages();
+        }
+        public void RefreshImages()
+        {
             for (int i = 0; i < 16; i++)
             {
                 string pictureboxName = "pictureBox" + (i + 1);
                 var pictureBox = Controls.Find(pictureboxName, true)
                                             .FirstOrDefault() as PictureBox;
                 if (pictureBox != null)
-                    pictureBox.Image = GetByIndex(i);
+                    pictureBox.Image = imageTiles[i].GetImage();
             }
-            
-
         }
-        Image GetByIndex(int index)
-        {
-            string imageName = images[index];
-            return (Image)Properties.Resources.ResourceManager.GetObject(imageName);
-        }
+        //Image GetByIndex(int index)
+        //{
+        //    string imageName = images[index];
+        //    return (Image)Properties.Resources.ResourceManager.GetObject(imageName);
+        //}
     }
 }

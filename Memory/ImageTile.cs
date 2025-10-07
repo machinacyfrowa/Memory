@@ -19,7 +19,7 @@ namespace Memory
         /// <summary>
         /// Metoda tworzy nową listę obrazków
         /// </summary>
-        static List<ImageTile> GenerateTiles()
+        public static List<ImageTile> GenerateTiles()
         {
             //stwórz pustą listę
             List<ImageTile> tiles = new List<ImageTile>();
@@ -45,7 +45,7 @@ namespace Memory
         /// Metoda zwraca obrazek na podstawie nazwy
         /// </summary>
         /// <returns>obrazek z zasobów</returns>
-        Image? GetImage()
+        public Image? GetImage()
         {
             if(state == State.Shown)
                 return (Image)Properties.Resources.ResourceManager.GetObject(name);

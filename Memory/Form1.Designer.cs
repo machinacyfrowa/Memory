@@ -251,6 +251,7 @@
             pictureBox13.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox13.TabIndex = 13;
             pictureBox13.TabStop = false;
+            pictureBox13.Click += pictureBox_Click;
             // 
             // pictureBox14
             // 
@@ -261,6 +262,7 @@
             pictureBox14.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox14.TabIndex = 14;
             pictureBox14.TabStop = false;
+            pictureBox14.Click += pictureBox_Click;
             // 
             // pictureBox15
             // 
@@ -271,6 +273,7 @@
             pictureBox15.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox15.TabIndex = 15;
             pictureBox15.TabStop = false;
+            pictureBox15.Click += pictureBox_Click;
             // 
             // pictureBox16
             // 
@@ -281,6 +284,7 @@
             pictureBox16.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox16.TabIndex = 16;
             pictureBox16.TabStop = false;
+            pictureBox16.Click += pictureBox_Click;
             // 
             // Form1
             // 

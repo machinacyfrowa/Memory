@@ -89,6 +89,8 @@ namespace Memory
                     //ukryj drugi obrazek
                     imageTiles[index].state = State.Hidden;
                 }
+                //przerzuæ flagê
+                firstClick = true;
             }
 
 

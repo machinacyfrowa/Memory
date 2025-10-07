@@ -4,6 +4,11 @@ namespace Memory
     {
         //List<string> images = new List<string>();
         List<ImageTile> imageTiles;
+        //flaga opisuj¹ czy to pierwszy czy drugi klik
+        bool firstClick = true;
+        //indeks pierwszego klikniêtego obrazka
+        //-1 oznacza, ¿e jeszcze nie klikniêto
+        int firstIndex = -1;
         public Form1()
         {
             InitializeComponent();
@@ -51,8 +56,43 @@ namespace Memory
             pictureboxName = pictureboxName.Replace("pictureBox", "");
             //przekonwertuj na int i odejmij 1
             int index = int.Parse(pictureboxName) - 1;
-            //mamy indeks w liœcie obrazków - zmieñ stan obrazka na pokazany
-            imageTiles[index].state = State.Shown;
+
+            // w zale¿noœci od tego czy jest to pierwszy czy drugi klik
+            // bêdziemy postêpowaæ inaczej
+            if(firstClick)
+            {
+                //ods³oñ obrazek
+                imageTiles[index].state = State.Shown;
+                //ustaw indeks pierwszego klikniêtego obrazka
+                firstIndex = index;
+                //przerzuæ flagê
+                firstClick = false;
+            } 
+            else
+            {
+                //je¿eli jest to drugie klikniêcie
+                //sprawdŸ czy obrazki s¹ takie same
+                string firstImageName = imageTiles[firstIndex].name;
+                string secondImageName = imageTiles[index].name;
+                if(firstImageName == secondImageName)
+                {
+                    //jeœli obrazki s¹ takie same
+                    //ustaw stan obu obrazków na Matched
+                    imageTiles[firstIndex].state = State.Matched;
+                    imageTiles[index].state = State.Matched;
+                }
+                else
+                {
+                    //jeœli obrazki s¹ ró¿ne
+                    //ukryj pierwszy obrazek
+                    imageTiles[firstIndex].state = State.Hidden;
+                    //ukryj drugi obrazek
+                    imageTiles[index].state = State.Hidden;
+                }
+            }
+
+
+
             //prze³aduj obrazki
             RefreshImages();
         }
